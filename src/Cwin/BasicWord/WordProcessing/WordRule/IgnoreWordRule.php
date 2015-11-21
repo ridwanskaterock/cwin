@@ -18,6 +18,10 @@ class IgnoreWordRule
 			return true;
 		}
 
+		if (self::ruleIsSymbol($word)) {
+			return true;
+		}
+
 		return false;
 	}
 
@@ -46,6 +50,18 @@ class IgnoreWordRule
 
 		if (preg_match("/(" . $implodeList . ")/", $word)) {
 			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function ruleIsSymbol($word)
+	{
+		$listChar = "[ ~ ` ! @ # $ % ^ & * ( ) _ - + = \ [ \ ] { } \ | \ \ : ; \" \ ' < , > . ]";
+		$listCharArr = explode(' ', $listChar);
+
+		if(preg_match("/(\\".implode('|\\', $listCharArr).")/", $word)) {
+	        return true;
 		} else {
 			return false;
 		}

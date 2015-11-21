@@ -1,9 +1,8 @@
 <?php 
 require_once __DIR__ . '/vendor/autoload.php';
 ini_set("max_execution_time", 0);
-$wordSpelling = new Cwin\BasicWord\WordSpelling;
-$sentence = file_get_contents(__DIR__ . '/example.txt');
-$checkSpelling = $wordSpelling->checkSpelling($sentence);
+$wordSpelling = new Cwin\BasicWord\WordSpelling;/*
+$sentence = file_get_contents(__DIR__ . '/example.txt');*/
 
 ?>
 <style type="text/css">	
@@ -14,7 +13,7 @@ $checkSpelling = $wordSpelling->checkSpelling($sentence);
 
 	.suggest{
 		position: absolute;
-		background:#000;
+		background:rgba(0,0,0,0.5);
 		padding: 5px;
 		color: #fff;
 		border-radius: 5px;
@@ -22,9 +21,10 @@ $checkSpelling = $wordSpelling->checkSpelling($sentence);
 
 	.word {
 		cursor: pointer;
+		line-height: 30px;
 	}
-	.word .suggest {
-		visibility: hidden;
+	.word .suggest {/*
+		visibility: hidden;*/
 	}
 
 	.word:hover .suggest {
@@ -34,18 +34,49 @@ $checkSpelling = $wordSpelling->checkSpelling($sentence);
 	.word .suggest:before {
 		content:"\A";
 	    border-style: solid;
-	    border-width: 7px 11px 7px 0;
+	    border-width: 7px 8px 7px 0;
 	    border-color: transparent #000 transparent transparent;
 	    position: absolute;
-	    left: -11px;
+	    left: -4px;
 	}
-</style>
-<?php
-foreach ($checkSpelling->spellingResult() as $result) {
-	echo '<span '.$result->getBaseWord().' '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
-	if($result->hasError()) {
-		echo " <span class='suggest'>".implode("<br>", $result->getSuggestion(4))."</span> " ;
-	}
-	echo '</span> ';
 
+	.word ul li{
+		list-style: none;
+		margin:0px;
+		padding: 0px;
+	}
+
+	.word ul {
+		margin:0px;
+		padding: 0px;
+	}
+
+</style>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".word .suggest ul li").click(function() {
+			var select = $(this).html();
+			var parent = $(this).parent().parent().parent();
+			parent.html(select);
+			parent.removeClass('error');
+		});
+	});
+</script>
+<form action="" method="POST" style="width:100%">
+	<textarea name="sentence" style="width:100%"><?= isset($_POST['sentence']) ? $_POST['sentence'] : ''; ?></textarea>
+	<button style="display:block; background:#970C0C; color:#fff; width:100%; padding:10px;">Steam</button>
+</form>
+<?php
+if (isset($_POST['sentence'])) {
+	$checkSpelling = $wordSpelling->checkSpelling($_POST['sentence']);
+
+	foreach ($checkSpelling->spellingResult() as $result) {
+		echo '<span '.$result->getBaseWord().' '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
+		if($result->hasError()) {
+			echo " <span class='suggest'><ul><li>".implode("</li><li>", $result->getSuggestion(2))."</li></ul></span> " ;
+		}
+		echo '</span> ';
+
+	}
 }
