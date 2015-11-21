@@ -44,7 +44,7 @@ $checkSpelling = $wordSpelling->checkSpelling($sentence);
 foreach ($checkSpelling->spellingResult() as $result) {
 	echo '<span '.$result->getBaseWord().' '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
 	if($result->hasError()) {
-		echo " <span class='suggest'>".implode("<br>", $result->getSuggestion())."</span> " ;
+		echo " <span class='suggest'>".implode("<br>", $result->getSuggestion(4))."</span> " ;
 	}
 	echo '</span> ';
 

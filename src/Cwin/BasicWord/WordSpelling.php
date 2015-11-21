@@ -31,7 +31,8 @@ class WordSpelling
 	{
 		self::addWord($word);
 		$word = self::getWord();
-		$wordArr = WordSteammer::steam($word);
+		$WordSteammerToken = new WordSteammer(new \Cwin\BasicWord\WordProcessing\TokenSentenceProvider\SastrawiTokenizer\Tokenizer);
+		$wordArr = $WordSteammerToken->steam($word);
 		$baseWordSource = WordFactory::sourceBaseWordArr();
 		$id = 0;
 		$stemmerFactory = new \Sastrawi\Stemmer\StemmerFactory();

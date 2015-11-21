@@ -18,6 +18,8 @@ class SpellingResultProcessor
 
 	public $id = '';
 
+	public $maxListSuggestion = 3;
+
 	public function __construct($spellingResult)
 	{
 		foreach ($spellingResult as $key => $value) {
@@ -51,16 +53,24 @@ class SpellingResultProcessor
 		return $this->baseWord;
 	}
 
-	public function getSuggestion()
+	public function getSuggestion($maxListSuggestion = null)
 	{
+		self::setMaxListSuggestion($maxListSuggestion);
+
 		if (self::hasError()) {
 			$word = $this->word;
 			$exceptionWord = [];
 			$baseWordSource = WordFactory::sourceBaseWordArr();
-			$maxLIstSuggestion = 5;
-			$suggest = Suggestion::suggest($word, $baseWordSource, $exceptionWord, $maxLIstSuggestion);
+			$suggest = Suggestion::suggest($word, $baseWordSource, $exceptionWord, $this->maxListSuggestion);
 
 			return $suggest;
+		}
+	}
+
+	public function setMaxListSuggestion($maxNumber)
+	{
+		if (isset($maxNumber) AND !empty($maxNumber)) {
+			$this->maxListSuggestion = $maxNumber;
 		}
 	}
 }

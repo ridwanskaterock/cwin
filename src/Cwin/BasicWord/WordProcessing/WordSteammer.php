@@ -2,28 +2,31 @@
 
 namespace Cwin\BasicWord\WordProcessing;
 
+use Cwin\BasicWord\WordProcessing\TokenSentenceProvider\TokenSentenceProviderInterface;
+
 class WordSteammer
 {
 	private $words;
 
+	private $wordSteammerProvider;
+
+	public function __construct(TokenSentenceProviderInterface $wordSteammerProvider)
+	{
+		$this->wordSteammerProvider = $wordSteammerProvider;
+	}
+
 	public function setWord($words)
 	{
-		if (!empty($words)) {
-			$this->words = $words;
-		}
+		$this->wordSteammerProvider->setWord($words);
 	}
 
 	public function getWord()
 	{
-		return $this->words;
+		return $this->wordSteammerProvider->getWord();
 	}
 
 	public function steam($words)
 	{
-		$tokenizerFactory  = new \Sastrawi\Tokenizer\TokenizerFactory();
-		$tokenizer = $tokenizerFactory->createDefaultTokenizer();
-		$wordsArr = $tokenizer->tokenize($words);
-
-		return $wordsArr;
+		return $this->wordSteammerProvider->steam($words);
 	}
 }
