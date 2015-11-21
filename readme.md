@@ -42,3 +42,7 @@ foreach ($checkSpelling->spellingResult() as $result) {
 
 ```
 
+![Result](http://s28.postimg.org/5lmjlbx99/Screenshot_5.png)
+
+
+
