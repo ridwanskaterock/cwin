@@ -13,7 +13,7 @@ class Suggestion
 	public function suggest($word, $dataWord, array $exceptionWord, $maxListSuggestion)
 	{
 		self::setMaxListSuggestion($maxListSuggestion);
-		self::setWord($word);
+		self::setWord(strtolower($word));
 		$shortest = -1;
 		$countClosest = 0;
 		$goodSuggestion = null;
