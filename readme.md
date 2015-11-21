@@ -34,7 +34,7 @@ $checkSpelling = $wordSpelling->checkSpelling('indonesi sudah merdeka sejak tahu
 foreach ($checkSpelling->spellingResult() as $result) {
     echo '<span '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
     if($result->hasError()) {
-        echo " <span class='suggest'><ul><li>".implode("</li><li>", $result->getSuggestion(2))."</li></ul></span> " ;
+        echo " <span class='suggest'><ul><li>".implode("</li><li>", $result->getSuggestion(10))."</li></ul></span> " ;
     }
     echo '</span> ';
 

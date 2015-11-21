@@ -23,8 +23,8 @@ $sentence = file_get_contents(__DIR__ . '/example.txt');*/
 		cursor: pointer;
 		line-height: 30px;
 	}
-	.word .suggest {/*
-		visibility: hidden;*/
+	.word .suggest {
+		visibility: hidden;
 	}
 
 	.word:hover .suggest {
