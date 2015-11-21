@@ -32,11 +32,11 @@ $wordSpelling = new Cwin\BasicWord\WordSpelling;
 $checkSpelling = $wordSpelling->checkSpelling('indonesi sudah merdeka sejak tahunn empat lima ');
 
 foreach ($checkSpelling->spellingResult() as $result) {
-	echo '<span '.$result->getBaseWord().' '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
-	if($result->hasError()) {
-		echo " <span class='suggest'><ul><li>".implode("</li><li>", $result->getSuggestion(2))."</li></ul></span> " ;
-	}
-	echo '</span> ';
+    echo '<span '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
+    if($result->hasError()) {
+        echo " <span class='suggest'><ul><li>".implode("</li><li>", $result->getSuggestion(2))."</li></ul></span> " ;
+    }
+    echo '</span> ';
 
 }
 
