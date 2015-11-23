@@ -28,17 +28,25 @@ Copy kode berikut di directory project anda. Lalu jalankan file tersebut.
 ```php
 <?php 
 require_once __DIR__ . '/vendor/autoload.php';
-$wordSpelling = new Cwin\BasicWord\WordSpelling;
-$checkSpelling = $wordSpelling->checkSpelling('indonesi sudah merdeka sejak tahunn empat lima ');
+
+use Cwin\BasicWord\WordProcessing\Source\Indonesia\WordFactoryIndonesia;
+
+$wordFactory = new Cwin\BasicWord\WordProcessing\WordFactory(new WordFactoryIndonesia);
+$wordSpelling = new Cwin\BasicWord\WordSpelling($wordFactory);
+
+
+$checkSpelling = $wordSpelling->checkSpelling('indonesi sudah merdeka sejak tahunn empat lima');
 
 foreach ($checkSpelling->spellingResult() as $result) {
-    echo '<span '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
-    if($result->hasError()) {
-        echo " <span class='suggest'><ul><li>".implode("</li><li>", $result->getSuggestion(10))."</li></ul></span> " ;
-    }
-    echo '</span> ';
+	echo '<span  '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
+	if($result->hasError()) {
+		echo " <span class='suggest'><ul><li>".implode("</li><li>", $result->getSuggestion(2))."</li></ul></span> " ;
+	}
+	echo '</span> ';
 
 }
+
+
 
 ```
 

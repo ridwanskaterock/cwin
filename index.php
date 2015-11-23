@@ -3,8 +3,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 set_time_limit(0);
 
-$dictionary = new Cwin\BasicWord\WordProcessing\Source\Indonesia\WordFactoryIndonesia;
-$wordFactory = new Cwin\BasicWord\WordProcessing\WordFactory($dictionary);
+use Cwin\BasicWord\WordProcessing\Source\Indonesia\WordFactoryIndonesia;
+
+$wordFactory = new Cwin\BasicWord\WordProcessing\WordFactory(new WordFactoryIndonesia);
 $wordSpelling = new Cwin\BasicWord\WordSpelling($wordFactory);
 
 
