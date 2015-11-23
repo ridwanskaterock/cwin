@@ -4,43 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "97d1e222d0f4dcc36dc89024f6f31ebf",
+    "hash": "f5424496a64a894e065fab42dc4fcbce",
     "packages": [
-        {
-            "name": "ilya/fuzzy",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ilya-dev/fuzzy.git",
-                "reference": "8aef7171250a78ba9e9cd4eff9da164a6fb8ff59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ilya-dev/fuzzy/zipball/8aef7171250a78ba9e9cd4eff9da164a6fb8ff59",
-                "reference": "8aef7171250a78ba9e9cd4eff9da164a6fb8ff59",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpspec/phpspec": "~2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Fuzzy\\": "src/Fuzzy"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Nice PHP library for fuzzy string searching",
-            "keywords": [
-                "fuzzy",
-                "search",
-                "string"
-            ],
-            "time": "2014-04-15 16:59:52"
-        },
         {
             "name": "sastrawi/string-span",
             "version": "v1.0.2",

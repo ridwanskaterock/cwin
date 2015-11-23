@@ -5,9 +5,9 @@ set_time_limit(0);
 
 use Cwin\BasicWord\WordProcessing\Source\Indonesia\WordFactoryIndonesia;
 
-$wordFactory = new Cwin\BasicWord\WordProcessing\WordFactory(new WordFactoryIndonesia);
-$wordSpelling = new Cwin\BasicWord\WordSpelling($wordFactory);
-
+$dictionary = new Cwin\BasicWord\WordProcessing\WordFactory(new WordFactoryIndonesia);
+$wordSpelling = new Cwin\BasicWord\WordSpelling($dictionary);
+$suggestion = new Cwin\Component\Suggestion\Suggestion()
 
 ?>
 <style type="text/css">	
@@ -76,13 +76,12 @@ $wordSpelling = new Cwin\BasicWord\WordSpelling($wordFactory);
 if (isset($_POST['sentence'])) {
 	$checkSpelling = $wordSpelling->checkSpelling($_POST['sentence']);
 
-	foreach ($checkSpelling->spellingResult() as $result) {
-		echo '<span '.$result->getBaseWord().' '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
-		if($result->hasError()) {
-			echo " <span class='suggest'><ul><li>".implode("</li><li>", $result->getSuggestion(2))."</li></ul></span> " ;
+	foreach ($checkSpelling->spellingResult() as $spelling) {
+		echo '<span '.$spelling->getBaseWord().' '.($spelling->hasError() ? 'class="error word"' : 'class="word"').'>' . $spelling->getWord() ;
+		if($spelling->hasError()) {
+			echo " <span class='suggest'><ul><li>".implode("</li><li>", $suggestion->setSpelling($spelling)->setMaxListSuggestion(3)->suggest())."</li></ul></span> " ;
 		}
 		echo '</span> ';
-
 	}
 }
 

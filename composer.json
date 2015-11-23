@@ -23,7 +23,6 @@
 		}
 	},
     "require": {
-		"sastrawi/tokenizer": "0.*",
-		"ilya/fuzzy": "~1"
+		"sastrawi/tokenizer": "0.*"
     }
 }

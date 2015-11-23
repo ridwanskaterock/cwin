@@ -1,24 +1,41 @@
 <?php
 
-namespace Cwin\BasicWord\Feature;
+namespace Cwin\Component\Suggestion;
 
-class Suggestion
+use Cwin\Component\Suggestion\SuggestionInterface;
+
+class Suggestion implements SuggestionInterface
 {
 	private $maxListSuggestion = 3;
 
 	private $word;
 
-	private $dataSource;
+	private $dictionary;
 
-	public function suggest($word, $dataWord, array $exceptionWord = array(), $maxListSuggestion = 3)
+	public function setSpelling($spellingResult)
 	{
+		$this->word = $spellingResult->word;
+		$this->dictionary = $spellingResult->dictionary;
+		$this->maxListSuggestion = $spellingResult->maxListSuggestion;
+		$exceptionWord = [];
+
+		return $this;
+	}
+
+	public function suggest()
+	{
+		$word = $this->word;
+		$dictionary = $this->dictionary;
+		$maxListSuggestion = $this->maxListSuggestion;
+		$exceptionWord = [];
+
 		self::setMaxListSuggestion($maxListSuggestion);
 		self::setWord(strtolower($word));
 		$shortest = -1;
 		$countClosest = 0;
 		$goodSuggestion = null;
 
-		foreach ($dataWord as $word) {
+		foreach ($dictionary->sourceBaseWordArr() as $word) {
 			if (in_array($word, $exceptionWord)) {
 				continue;
 			}
@@ -97,6 +114,8 @@ class Suggestion
 		if (isset($maxNumber) AND $maxNumber > 0) {
 			$this->maxListSuggestion = $maxNumber;
 		}
+
+		return $this;
 	}
 
 	public function setWord($word)
@@ -104,6 +123,8 @@ class Suggestion
 		if (isset($word) AND !empty($word)) {
 			$this->word = $word;
 		}
+
+		return $this;
 	}
 
 }

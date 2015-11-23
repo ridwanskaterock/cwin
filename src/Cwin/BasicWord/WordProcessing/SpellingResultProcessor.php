@@ -61,25 +61,4 @@ class SpellingResultProcessor
 	{
 		return $this->baseWord;
 	}
-
-	public function getSuggestion($maxListSuggestion = null)
-	{
-		self::setMaxListSuggestion($maxListSuggestion);
-
-		if (self::hasError()) {
-			$word = $this->word;
-			$exceptionWord = [];
-			$baseWordSource = WordFactory::sourceBaseWordArr();
-			$suggest = Suggestion::suggest($word, $baseWordSource, $exceptionWord, $this->maxListSuggestion);
-
-			return $suggest;
-		}
-	}
-
-	public function setMaxListSuggestion($maxNumber)
-	{
-		if (isset($maxNumber) AND !empty($maxNumber)) {
-			$this->maxListSuggestion = $maxNumber;
-		}
-	}
 }

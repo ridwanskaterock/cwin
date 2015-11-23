@@ -16,7 +16,7 @@ class WordSpelling
 
 	private $spellingResult;
 
-	public function __construct($dictionary)
+	public function __construct(WordFactoryInterface $dictionary)
 	{
 		$this->dictionary = $dictionary;
 	}
@@ -47,12 +47,12 @@ class WordSpelling
 				$wordCompare = strtolower(trim($word));
 
 				if (in_array($wordCompare, $baseWordSource)) {
-					self::addCorrectWord($id, $word, $word);
+					self::addCorrectWord($id, $word);
 				} else {
-					self::addForeignWord($id, $word, $word);
+					self::addForeignWord($id, $word);
 				}
 			} else {
-				self::addCorrectWord($id, $word, $word);
+				self::addCorrectWord($id, $word);
 			}
 
 			$id++;
@@ -61,27 +61,25 @@ class WordSpelling
 		return $this;
 	}
 
-	public function addCorrectWord($id, $word, $word)
+	public function addCorrectWord($id, $word)
 	{
 		$SpellingResultProcessor = new SpellingResultProcessor($this->dictionary);
 		$this->spellingResult[$id] = $SpellingResultProcessor->setData([
 			'id' => $id,
 			'word' => $word,
-			'foreign' => false,
-			'baseWord' => $word
+			'foreign' => false
 		]);
 
 		return $this;
 	}
 
-	public function addForeignWord($id, $word, $baseWord)
+	public function addForeignWord($id, $word)
 	{
 		$SpellingResultProcessor = new SpellingResultProcessor($this->dictionary);
 		$this->spellingResult[$id] = $SpellingResultProcessor->setData([
 			'id' => $id,
 			'word' => $word,
-			'foreign' => $word,
-			'baseWord' => $baseWord
+			'foreign' => $word
 		]);
 		
 		$this->foreignWord[$id] = $word;
