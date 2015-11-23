@@ -1,7 +1,7 @@
 Cwin
 =========
 
-Cwin (Chceck Word Indonesian)
+Cwin (Correct Word Indonesian)
 
 
 Spelling
@@ -11,6 +11,8 @@ Contohnya:
 - indonesa => indonesia
 - mrdeka => merdeka
 - negri => negeri
+- membagun => membangun
+
 
 
 Contoh kasus
