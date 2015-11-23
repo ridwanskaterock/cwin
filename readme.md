@@ -33,20 +33,22 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Cwin\BasicWord\WordProcessing\Source\Indonesia\WordFactoryIndonesia;
 
-$wordFactory = new Cwin\BasicWord\WordProcessing\WordFactory(new WordFactoryIndonesia);
-$wordSpelling = new Cwin\BasicWord\WordSpelling($wordFactory);
-
+$dictionary = new Cwin\BasicWord\WordProcessing\WordFactory(new WordFactoryIndonesia);
+$wordSpelling = new Cwin\BasicWord\WordSpelling($dictionary);
+$suggestion = new Cwin\Component\Suggestion\Suggestion();
 
 $checkSpelling = $wordSpelling->checkSpelling('indonesi sudah merdeka sejak tahunn empat lima');
+$suggestion->setMaxLIstSuggestion(3);
 
-foreach ($checkSpelling->spellingResult() as $result) {
-	echo '<span  '.($result->hasError() ? 'class="error word"' : 'class="word"').'>' . $result->getWord() ;
-	if($result->hasError()) {
-		echo " <span class='suggest'><ul><li>".implode("</li><li>", $result->getSuggestion(2))."</li></ul></span> " ;
+foreach ($checkSpelling->spellingResult() as $spelling) {
+	echo '<span '.($spelling->hasError() ? 'class="error word"' : 'class="word"').'>' . $spelling->getWord() ;
+	if($spelling->hasError()) {
+		echo " <span class='suggest'><ul><li>".implode("</li><li>", $suggestion->setSpelling($spelling)->suggest())."</li></ul></span> " ;
 	}
 	echo '</span> ';
-
 }
+
+
 
 
 
