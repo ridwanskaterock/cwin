@@ -2,21 +2,22 @@
 
 namespace Cwin\BasicWord\WordProcessing;
 
-class WordFactory
+use Cwin\BasicWord\WordProcessing\Source\WordFactoryInterface;
+
+class WordFactory implements WordFactoryInterface
 {
+	public function __construct(WordFactoryInterface $sourceWord)
+	{
+		$this->dictionary = $sourceWord;
+	}
+
 	public function sourceBaseWord()
 	{
-		$baseWordPath = __DIR__ . '/Source/kata-dasar.txt';
-		$basicWordContents = file_get_contents($baseWordPath);
-
-		return $basicWordContents;
+		return $this->dictionary->sourceBaseWord();
 	}
 
 	public function sourceBaseWordArr()
 	{
-		$basicWordContents = self::sourceBaseWord();
-		$basicWordContentsArr = explode("\n", $basicWordContents);
-
-		return $basicWordContentsArr;
+		return $this->dictionary->sourceBaseWordArr();
 	}
 }

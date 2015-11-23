@@ -1,8 +1,12 @@
 <?php 
 require_once __DIR__ . '/vendor/autoload.php';
-ini_set("max_execution_time", 0);
-$wordSpelling = new Cwin\BasicWord\WordSpelling;/*
-$sentence = file_get_contents(__DIR__ . '/example.txt');*/
+
+set_time_limit(0);
+
+$dictionary = new Cwin\BasicWord\WordProcessing\Source\Indonesia\WordFactoryIndonesia;
+$wordFactory = new Cwin\BasicWord\WordProcessing\WordFactory($dictionary);
+$wordSpelling = new Cwin\BasicWord\WordSpelling($wordFactory);
+
 
 ?>
 <style type="text/css">	
@@ -80,3 +84,4 @@ if (isset($_POST['sentence'])) {
 
 	}
 }
+

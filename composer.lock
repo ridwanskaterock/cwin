@@ -4,63 +4,42 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "46fa111b9337d9cadb631b72ddbda7f8",
+    "hash": "97d1e222d0f4dcc36dc89024f6f31ebf",
     "packages": [
         {
-            "name": "sastrawi/sastrawi",
-            "version": "v1.0.10",
+            "name": "ilya/fuzzy",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sastrawi/sastrawi.git",
-                "reference": "3908bd922f424400d9e453186d1434d692a06d88"
+                "url": "https://github.com/ilya-dev/fuzzy.git",
+                "reference": "8aef7171250a78ba9e9cd4eff9da164a6fb8ff59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sastrawi/sastrawi/zipball/3908bd922f424400d9e453186d1434d692a06d88",
-                "reference": "3908bd922f424400d9e453186d1434d692a06d88",
+                "url": "https://api.github.com/repos/ilya-dev/fuzzy/zipball/8aef7171250a78ba9e9cd4eff9da164a6fb8ff59",
+                "reference": "8aef7171250a78ba9e9cd4eff9da164a6fb8ff59",
                 "shasum": ""
             },
-            "require": {
-                "php": ">=5.3"
-            },
             "require-dev": {
-                "phpunit/phpunit": "4.8.7",
-                "squizlabs/php_codesniffer": "~1.0"
+                "phpspec/phpspec": "~2"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
             "autoload": {
-                "psr-0": {
-                    "Sastrawi\\": "src"
+                "psr-4": {
+                    "Fuzzy\\": "src/Fuzzy"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Andy Librian",
-                    "email": "andylibrian@gmail.com",
-                    "homepage": "http://andylibrian.com",
-                    "role": "Lead Developer"
-                }
-            ],
-            "description": "PHP library for stemming Indonesian language (Bahasa Indonesia)",
-            "homepage": "https://github.com/sastrawi/sastrawi",
+            "description": "Nice PHP library for fuzzy string searching",
             "keywords": [
-                "bahasa",
-                "indonesia",
-                "indonesian",
-                "kata dasar",
-                "root word",
-                "stem"
+                "fuzzy",
+                "search",
+                "string"
             ],
-            "time": "2015-09-28 07:04:39"
+            "time": "2014-04-15 16:59:52"
         },
         {
             "name": "sastrawi/string-span",
@@ -247,16 +226,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.6",
+            "version": "v2.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "5efd632294c8320ea52492db22292ff853a43766"
+                "reference": "16bb1cb86df43c90931df65f529e7ebd79636750"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/5efd632294c8320ea52492db22292ff853a43766",
-                "reference": "5efd632294c8320ea52492db22292ff853a43766",
+                "url": "https://api.github.com/repos/symfony/console/zipball/16bb1cb86df43c90931df65f529e7ebd79636750",
+                "reference": "16bb1cb86df43c90931df65f529e7ebd79636750",
                 "shasum": ""
             },
             "require": {
@@ -281,7 +260,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Console\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -299,7 +281,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-20 14:38:46"
+            "time": "2015-11-18 09:54:26"
         },
         {
             "name": "zendframework/zend-escaper",

@@ -20,13 +20,22 @@ class SpellingResultProcessor
 
 	public $maxListSuggestion = 3;
 
-	public function __construct($spellingResult)
+	public  $dictionary = [];
+
+	public function __construct($dictionary)
+	{
+		$this->dictionary = $dictionary;
+	}
+
+	public function setData($spellingResult)
 	{
 		foreach ($spellingResult as $key => $value) {
 			if (isset($this->$key)) {
 				$this->$key = $value;
 			}
 		}
+
+		return $this;
 	}
 
 	public function hasError()

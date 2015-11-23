@@ -10,7 +10,7 @@ class Suggestion
 
 	private $dataSource;
 
-	public function suggest($word, $dataWord, array $exceptionWord, $maxListSuggestion)
+	public function suggest($word, $dataWord, array $exceptionWord = array(), $maxListSuggestion = 3)
 	{
 		self::setMaxListSuggestion($maxListSuggestion);
 		self::setWord(strtolower($word));
@@ -42,7 +42,7 @@ class Suggestion
 		}
 
 		if ($shortest == 0) {
-			return false;
+			return [];
 		} else {
 		   	return self::sorting($listSuggestion, $this->word);
 		}
@@ -61,7 +61,13 @@ class Suggestion
 		$improveGoodResultToCut = [];
 
 		foreach ($suggestResult as $result) {
-			$improveGoodResult[] = ['matching' => similar_text($word, $result), 'word' => $result];
+			$avgLength = ( strlen( $word ) + strlen( $result ) ) / 2;
+			$matchFraction = 1 - ( levenshtein( $word, $result ) / $avgLength );
+
+			$improveGoodResult[] = [
+				'matching' => similar_text($word, $result), 
+				'word' => $result
+			];
 		}
 
 		foreach ($improveGoodResult as $key => $row) {
@@ -99,4 +105,5 @@ class Suggestion
 			$this->word = $word;
 		}
 	}
+
 }

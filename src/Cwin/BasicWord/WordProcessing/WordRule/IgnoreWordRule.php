@@ -36,7 +36,7 @@ class IgnoreWordRule
 
 	public function ruleIsNumber($word)
 	{
-		if (is_numeric($word)) {
+		if (preg_match("/[0-9]/", $word)) {
 			return true;
 		} else {
 			return false;

@@ -6,6 +6,7 @@ use Cwin\BasicWord\WordProcessing\WordFactory;
 use Cwin\BasicWord\WordProcessing\WordSteammer;
 use Cwin\BasicWord\WordProcessing\SpellingResultProcessor;
 use Cwin\BasicWord\WordProcessing\WordRule\IgnoreWordRule;
+use Cwin\BasicWord\WordProcessing\Source\WordFactoryInterface;
 
 class WordSpelling
 {
@@ -14,6 +15,11 @@ class WordSpelling
 	private $foreignWord;
 
 	private $spellingResult;
+
+	public function __construct($dictionary)
+	{
+		$this->dictionary = $dictionary;
+	}
 
 	public function addWord($word)
 	{
@@ -33,23 +39,20 @@ class WordSpelling
 		$word = self::getWord();
 		$WordSteammerToken = new WordSteammer(new \Cwin\BasicWord\WordProcessing\TokenSentenceProvider\SastrawiTokenizer\Tokenizer);
 		$wordArr = $WordSteammerToken->steam($word);
-		$baseWordSource = WordFactory::sourceBaseWordArr();
+		$baseWordSource = $this->dictionary->sourceBaseWordArr();
 		$id = 0;
-		$stemmerFactory = new \Sastrawi\Stemmer\StemmerFactory();
-		$stemmer = $stemmerFactory->createStemmer();
 
 		foreach ($wordArr as $word) {
-			$baseWord = $stemmer->stem($word);
-			$baseWord = strtolower(trim($baseWord));
+			if (IgnoreWordRule::wordIsIgnored($word) === false) {
+				$wordCompare = strtolower(trim($word));
 
-			if (IgnoreWordRule::wordIsIgnored($baseWord) === false) {
-				if (in_array($baseWord, $baseWordSource)) {
-					self::addCorrectWord($id, $word, $baseWord);
+				if (in_array($wordCompare, $baseWordSource)) {
+					self::addCorrectWord($id, $word, $word);
 				} else {
-					self::addForeignWord($id, $word, $baseWord);
+					self::addForeignWord($id, $word, $word);
 				}
 			} else {
-				self::addCorrectWord($id, $word, $baseWord);
+				self::addCorrectWord($id, $word, $word);
 			}
 
 			$id++;
@@ -58,13 +61,14 @@ class WordSpelling
 		return $this;
 	}
 
-	public function addCorrectWord($id, $word, $baseWord)
+	public function addCorrectWord($id, $word, $word)
 	{
-		$this->spellingResult[$id] = new SpellingResultProcessor([
+		$SpellingResultProcessor = new SpellingResultProcessor($this->dictionary);
+		$this->spellingResult[$id] = $SpellingResultProcessor->setData([
 			'id' => $id,
 			'word' => $word,
 			'foreign' => false,
-			'baseWord' => $baseWord
+			'baseWord' => $word
 		]);
 
 		return $this;
@@ -72,7 +76,8 @@ class WordSpelling
 
 	public function addForeignWord($id, $word, $baseWord)
 	{
-		$this->spellingResult[$id] = new SpellingResultProcessor([
+		$SpellingResultProcessor = new SpellingResultProcessor($this->dictionary);
+		$this->spellingResult[$id] = $SpellingResultProcessor->setData([
 			'id' => $id,
 			'word' => $word,
 			'foreign' => $word,
