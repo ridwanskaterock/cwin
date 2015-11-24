@@ -49,9 +49,6 @@ foreach ($checkSpelling->spellingResult() as $spelling) {
 }
 
 
-
-
-
 ```
 
 ![Result](http://s28.postimg.org/5lmjlbx99/Screenshot_5.png)

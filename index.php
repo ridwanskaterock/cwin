@@ -4,6 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 set_time_limit(0);
 
 use Cwin\BasicWord\WordProcessing\Source\Indonesia\WordFactoryIndonesia;
+use Cwin\BasicWord\WordProcessing\Source\English\WordFactoryEnglish;
 
 $dictionary = new Cwin\BasicWord\WordProcessing\WordFactory(new WordFactoryIndonesia);
 $wordSpelling = new Cwin\BasicWord\WordSpelling($dictionary);
