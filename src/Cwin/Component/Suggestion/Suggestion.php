@@ -17,7 +17,6 @@ class Suggestion implements SuggestionInterface
 		$this->word = $spellingResult->word;
 		$this->dictionary = $spellingResult->dictionary;
 		$this->maxListSuggestion = $spellingResult->maxListSuggestion;
-		$exceptionWord = [];
 
 		return $this;
 	}
@@ -27,7 +26,6 @@ class Suggestion implements SuggestionInterface
 		$word = $this->word;
 		$dictionary = $this->dictionary;
 		$maxListSuggestion = $this->maxListSuggestion;
-		$exceptionWord = [];
 
 		self::setMaxListSuggestion($maxListSuggestion);
 		self::setWord(strtolower($word));
@@ -36,10 +34,6 @@ class Suggestion implements SuggestionInterface
 		$goodSuggestion = null;
 
 		foreach ($dictionary->sourceBaseWordArr() as $word) {
-			if (in_array($word, $exceptionWord)) {
-				continue;
-			}
-
 		    $lev = levenshtein($this->word, $word);
 
 		    if ($lev == 0) {
