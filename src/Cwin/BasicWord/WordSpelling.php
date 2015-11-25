@@ -18,7 +18,12 @@ class WordSpelling
 
 	public function __construct(WordFactoryInterface $dictionary)
 	{
-		$this->dictionary = $dictionary;
+		return self::changeDictionary($dictionary);
+	}
+
+	public function changeDictionary(WordFactoryInterface $dictionary)
+	{
+		return $this->dictionary = $dictionary;
 	}
 
 	public function addWord($word)
@@ -33,7 +38,7 @@ class WordSpelling
 		return $this->word;
 	}
 
-	public function checkSpelling($word)
+	public function checkSpelling($word = '')
 	{
 		self::addWord($word);
 		$word = self::getWord();
