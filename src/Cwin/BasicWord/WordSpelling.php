@@ -14,7 +14,7 @@ class WordSpelling
 
 	private $foreignWord;
 
-	private $spellingResult;
+	public $spellingResult;
 
 	public function __construct(WordFactoryInterface $dictionary)
 	{
@@ -23,7 +23,9 @@ class WordSpelling
 
 	public function changeDictionary(WordFactoryInterface $dictionary)
 	{
-		return $this->dictionary = $dictionary;
+		$this->dictionary = $dictionary;
+
+		return $this;
 	}
 
 	public function addWord($word)
@@ -31,6 +33,8 @@ class WordSpelling
 		if (!empty($word)) {
 			$this->word = $word;
 		}
+
+		return $this;
 	}
 
 	public function getWord()
@@ -45,10 +49,11 @@ class WordSpelling
 		$WordSteammerToken = new WordSteammer(new \Cwin\BasicWord\WordProcessing\TokenSentenceProvider\SastrawiTokenizer\Tokenizer);
 		$wordArr = $WordSteammerToken->steam($word);
 		$baseWordSource = $this->dictionary->sourceBaseWordArr();
+		$ignoreWordRule = new IgnoreWordRule;
 		$id = 0;
 
 		foreach ($wordArr as $word) {
-			if (IgnoreWordRule::wordIsIgnored($word) === false) {
+			if ($ignoreWordRule->wordIsIgnored($word) === false) {
 				$wordCompare = strtolower(trim($word));
 
 				if (in_array($wordCompare, $baseWordSource)) {
@@ -68,8 +73,8 @@ class WordSpelling
 
 	public function addCorrectWord($id, $word)
 	{
-		$SpellingResultProcessor = new SpellingResultProcessor($this->dictionary);
-		$this->spellingResult[$id] = $SpellingResultProcessor->setData([
+		$spellingResultProcessor = new SpellingResultProcessor($this->dictionary);
+		$this->spellingResult[$id] = $spellingResultProcessor->setData([
 			'id' => $id,
 			'word' => $word,
 			'foreign' => false
@@ -80,8 +85,8 @@ class WordSpelling
 
 	public function addForeignWord($id, $word)
 	{
-		$SpellingResultProcessor = new SpellingResultProcessor($this->dictionary);
-		$this->spellingResult[$id] = $SpellingResultProcessor->setData([
+		$spellingResultProcessor = new SpellingResultProcessor($this->dictionary);
+		$this->spellingResult[$id] = $spellingResultProcessor->setData([
 			'id' => $id,
 			'word' => $word,
 			'foreign' => $word
