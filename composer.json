@@ -27,5 +27,8 @@
     }, 
     "require-dev": {
         "phpunit/phpunit": "*"
-    }
+    },
+    "license": "MIT",
+    "prefer-stable": true,
+    "minimum-stability": "dev"
 }
