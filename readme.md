@@ -3,6 +3,10 @@ Cwin
 
 Cwin (Correct Word Indonesian)
 
+Author
+---------
+Muhamad Ridwan
+ridwanskaterocks@gmail.com
 
 Spelling
 ---------
@@ -29,24 +33,25 @@ Copy kode berikut di directory project anda. Lalu jalankan file tersebut.
 
 ```php
 <?php 
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Cwin\BasicWord\WordProcessing\Source\Indonesia\WordFactoryIndonesia;
+use Cwin\BasicWord\WordProcessing\Source\English\WordFactoryEnglish;
 
-$dictionary = new Cwin\BasicWord\WordProcessing\WordFactory(new WordFactoryIndonesia);
-$wordSpelling = new Cwin\BasicWord\WordSpelling($dictionary);
+$wordSpelling = new Cwin\BasicWord\WordSpelling(new WordFactoryIndonesia);
 $suggestion = new Cwin\Component\Suggestion\Suggestion();
 
 $checkSpelling = $wordSpelling->checkSpelling('indonesi sudah merdeka sejak tahunn empat lima');
-$suggestion->setMaxLIstSuggestion(3);
 
 foreach ($checkSpelling->spellingResult() as $spelling) {
-	echo '<span '.($spelling->hasError() ? 'class="error word"' : 'class="word"').'>' . $spelling->getWord() ;
+	echo '<span '.$spelling->getBaseWord().' '.($spelling->hasError() ? 'class="error word"' : 'class="word"').'>' . $spelling->getWord() ;
 	if($spelling->hasError()) {
-		echo " <span class='suggest'><ul><li>".implode("</li><li>", $suggestion->setSpelling($spelling)->suggest())."</li></ul></span> " ;
+		echo " <span class='suggest'><ul><li>".implode("</li><li>", $suggestion->setSpelling($spelling)->setMaxListSuggestion(3)->suggest())."</li></ul></span> " ;
 	}
 	echo '</span> ';
 }
+
 
 
 ```
