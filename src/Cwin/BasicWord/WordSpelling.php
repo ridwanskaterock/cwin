@@ -23,9 +23,17 @@ class WordSpelling
 
 	public function changeDictionary(WordFactoryInterface $dictionary)
 	{
+		self::resetSpellingResultData();
 		$this->dictionary = $dictionary;
 
 		return $this;
+	}
+
+	public function resetSpellingResultData()
+	{
+		$this->word = null;
+		$this->foreignWord = null;
+		$this->spellingResult = null;
 	}
 
 	public function addWord($word)
