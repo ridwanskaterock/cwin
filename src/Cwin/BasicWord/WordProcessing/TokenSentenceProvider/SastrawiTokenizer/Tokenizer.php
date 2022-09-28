@@ -22,7 +22,7 @@ class Tokenizer implements TokenSentenceProviderInterface
 
 	public function steam($words)
 	{
-		$wordsArr = preg_split('/[\s\,\.]/i', $words, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+		$wordsArr = preg_split('/\s+|\b/', $words);
 
 		return $wordsArr;
 	}
