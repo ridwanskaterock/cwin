@@ -23,7 +23,6 @@
 		}
 	},
     "require": {
-		"sastrawi/tokenizer": "0.*"
     }, 
     "require-dev": {
         "phpunit/phpunit": "*"

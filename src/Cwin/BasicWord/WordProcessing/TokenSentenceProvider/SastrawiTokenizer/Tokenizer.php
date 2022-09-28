@@ -22,9 +22,7 @@ class Tokenizer implements TokenSentenceProviderInterface
 
 	public function steam($words)
 	{
-		$tokenizerFactory  = new \Sastrawi\Tokenizer\TokenizerFactory();
-		$tokenizer = $tokenizerFactory->createDefaultTokenizer();
-		$wordsArr = $tokenizer->tokenize($words);
+		$wordsArr = preg_split('/[\s\,\.]/i', $words, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
 		return $wordsArr;
 	}
