@@ -8,7 +8,7 @@ use Cwin\BasicWord\WordProcessing\Source\English\WordFactoryEnglish;
 $wordSpelling = new Cwin\BasicWord\WordSpelling(new WordFactoryIndonesia);
 $suggestion = new Cwin\Component\Suggestion\Suggestion();
 
-$checkSpelling = $wordSpelling->checkSpelling('indonesi sudah merdeka sejak tahunn empat lima, sampaii duaa lima');
+$checkSpelling = $wordSpelling->checkSpelling('indonesi sudah merdeka sejak tahunn empat lima');
 $suggestion->setMaxListSuggestion(3);
 
 foreach ($checkSpelling->spellingResult() as $spelling) {
