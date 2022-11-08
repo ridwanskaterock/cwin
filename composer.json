@@ -1,0 +1,33 @@
+{
+	"name" : "cwin/cwin-app",
+	"authors": [
+        {
+            "name": "Muhamad Ridwan",
+            "email": "ridwanskaterocks@gmail.com",
+            "role": "Web Developer"
+        }
+    ],
+    "type": "library",
+    "description": "PHP library for check spelling Indonesian language (Bahasa Indonesia)",
+    "keywords": [
+        "indonesian",
+        "check",
+        "kata dasar",
+        "check spelling",
+        "cek ejaan",
+        "ejaan"
+    ],
+	"autoload" : {
+		"psr-0" : {
+			"Cwin\\" : "src"
+		}
+	},
+    "require": {
+    }, 
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "license": "MIT",
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}
