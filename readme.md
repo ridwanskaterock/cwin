@@ -26,6 +26,12 @@ untuk menghindari ketidaksesuaian dalam penulisan diperlukan pengecekan otomatis
 
 
 
+Instalasi
+-----------
+```bash
+$ composer require cwin/cwin-app dev-master
+```
+
 Penggunaan
 -----------
 
